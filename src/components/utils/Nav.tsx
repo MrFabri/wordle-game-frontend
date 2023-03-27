@@ -12,7 +12,6 @@ function Nav() {
         <menu>
           <Link to="/info">Info</Link>
           <Link to="/highscore">Highscore</Link>
-          <Link to="/info">Settings</Link>
         </menu>
       </div>
     </nav>

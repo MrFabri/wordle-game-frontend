@@ -1,4 +1,6 @@
-.gameboard {
+.game {
+    position: relative;
+    background-color: rgb(255, 255, 255);
     margin: 0 auto;
     width: 60%;
     min-height: 400px;
@@ -9,6 +11,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .settings-icon, .close-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-image: url('./../../assets/settings.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 1rem;
+        display: block;
+        cursor: pointer;
+    }
+
+    .close-icon {
+        background-image: url('./../../assets/close-circle.svg');
+    }
 
     form.gameinput {
         margin-top: 2rem;
@@ -23,8 +44,42 @@
             outline: none;
         }
         button {
+            background-color: white;
             cursor: pointer;
             border-radius: 0 .3rem .3rem 0;
+        }
+    }
+
+    .settings-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        >input, >label {
+            width: 80%;
+            margin-bottom: 1rem;
+        }
+
+        >input {
+            padding: .5rem 1rem;
+            outline: none;
+            border-radius: .3rem;
+            border: 1px solid black;
+        }
+
+        >button {
+            cursor: pointer;
+            transition: translate 1s ease-in-out;
+            background-color: rgb(0, 0, 0);
+            color: rgb(224, 224, 224);
+            padding: .5rem 2rem;
+            margin-top: 1.5rem;
+            border: none;
+    
+            &:hover {
+                transform: translateY(-2%);
+            }
         }
     }
 }

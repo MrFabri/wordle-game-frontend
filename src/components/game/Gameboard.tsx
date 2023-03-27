@@ -1,15 +1,18 @@
 import GameInput from "./GameInput";
-import "./game.scss";
 
-function Gameboard() {
+interface Props {
+  inputLenght: number;
+}
+
+function Gameboard({ inputLenght }: Props) {
   const submit = (input: string): void => console.log(input);
 
   return (
-    <div className="gameboard">
+    <>
       <h1>Gameboard</h1>
-      <p>Guess the mystyc word 👀</p>
-      <GameInput onSubmit={submit} />
-    </div>
+      <p>Guess the mystic word 👀</p>
+      <GameInput onSubmit={submit} inputLenght={inputLenght} />
+    </>
   );
 }
 

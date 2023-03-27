@@ -29,10 +29,7 @@ a {
 }
 
 nav {
-    position: absolute;
-    top: 1;
-    left: 0;
-    width: 100%;
+    background-color: white;
     border-bottom: 1px solid black;
 
     .container {
@@ -51,7 +48,6 @@ nav {
             a {
                 color: black;
                 margin-right: 2rem;
-
                 &:last-child {
                     margin-right: 0;
                 }
@@ -61,6 +57,10 @@ nav {
 }
 
 main {
+    background-image: url('./assets/bg.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     height: 100vh;
     padding-top: 70px;
 }
