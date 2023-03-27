@@ -1,1 +1,1 @@
-## Wordle Game
+## Wordle Game - Fullstack application
