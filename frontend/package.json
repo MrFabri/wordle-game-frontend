@@ -1,5 +1,6 @@
 {
-  "name": "wordle-game",
+  "name": "wordle-game-frontend",
+  "description": "Wordle Game Frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
