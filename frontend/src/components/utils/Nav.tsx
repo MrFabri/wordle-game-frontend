@@ -10,8 +10,8 @@ function Nav() {
           Wordle Game
         </h1>
         <menu>
-          <Link to="/info">Info</Link>
-          <Link to="/highscore">Highscore</Link>
+          <Link to="/information">Information</Link>
+          <a href="/highscore">Highscore</a>
         </menu>
       </div>
     </nav>

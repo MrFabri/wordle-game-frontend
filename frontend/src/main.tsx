@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <div className="container">
           <Routes>
             <Route path="/" Component={Game} />
-            <Route path="/info" Component={Info} />
+            <Route path="/information" Component={Info} />
             <Route path="*" Component={NotFound} />
           </Routes>
         </div>
