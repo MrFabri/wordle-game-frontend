@@ -31,9 +31,14 @@
         background-image: url('./../../assets/close-circle.svg');
     }
 
+    >p {
+        margin-bottom: 2rem;
+    }
+
     form.gameinput {
-        margin-top: 2rem;
         display: flex;
+        margin-bottom: 5rem;
+
         input, button {
             border: 1px solid black;
             padding: .5rem 1rem;
@@ -80,6 +85,66 @@
             &:hover {
                 transform: translateY(-2%);
             }
+        }
+    }
+
+    .winner {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: rgba(153, 153, 153, 0.459);
+        padding: 1rem;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+
+        .winner-content {
+            width: 20%;
+            border-radius: 1rem;
+            background-color: rgb(124, 124, 124);
+            padding: 1rem;
+            color: white;
+        }
+    }
+}
+
+.feedback-container {
+    display: flex;
+    margin-bottom: 1rem;
+
+    .feedback {
+        border-radius: .5rem;
+        width: 3.5rem;
+        height: 3.5rem;
+        display: grid;
+        place-items: center;
+        border: .15rem solid black;
+        margin-right: 1rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        p {
+            pointer-events: none;
+            color: white;
+            font-size: 1.5rem;
+            -webkit-text-stroke: 1px #F8F8F8;
+            text-shadow: 0px 2px 4px rgb(0, 0, 0);
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        &.correct{
+            background-color: rgb(15, 121, 15);
+        }
+
+        &.misplaced {
+            background-color: rgb(223, 223, 37);
+        }
+        &.incorrect {
+            background-color: rgb(197, 32, 32);
         }
     }
 }

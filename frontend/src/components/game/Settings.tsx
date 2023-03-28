@@ -1,15 +1,16 @@
 import { useState } from "react";
 
 interface Props {
-  onSave: (input: number) => void;
-  inputValue: number;
+  word: {
+    lengt: number;
+    setLengt: (input: number) => void;
+  };
   settings: {
-    settingState: boolean;
-    setSettingState: (number: boolean) => void;
+    toggle: () => void;
   };
 }
 
-function Settings({ onSave, inputValue, settings }: Props) {
+function Settings({ word, settings }: Props) {
   const [number, setNumber] = useState(0);
 
   return (
@@ -18,11 +19,12 @@ function Settings({ onSave, inputValue, settings }: Props) {
       <label htmlFor="number">Number of letters</label>
       <input
         name="number"
+        autoComplete="off"
         type="number"
         min="4"
         max="11"
         autoFocus
-        placeholder={inputValue.toString()}
+        placeholder={word.lengt.toString()}
         onChange={(e) => {
           setNumber(Number(e.target.value));
         }}
@@ -32,8 +34,8 @@ function Settings({ onSave, inputValue, settings }: Props) {
           if (!number || number > 11 || number < 4) {
             return;
           }
-          onSave(number);
-          settings.setSettingState(!settings.settingState);
+          word.setLengt(number);
+          settings.toggle();
         }}
       >
         Save
