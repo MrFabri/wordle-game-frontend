@@ -14,4 +14,11 @@ router.get("/hello", (req, res) => {
   });
 });
 
+router.get('/*', (req, res) => {
+  res.status(404).json({
+    status: res.statusCode,
+    response: 'Error, we could not find this resource!'
+  })
+});
+
 export default router;
