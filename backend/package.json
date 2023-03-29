@@ -6,8 +6,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node dist/index.js",
-    "build": "tsc",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "build": "npm run clean && tsc && npm run ejscopy",
+    "ejscopy": "ncp ./src/views/ ./dist/views/",
+    "clean": "rimraf ./dist"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +18,9 @@
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.5",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "ncp": "^2.0.0",
+    "rimraf": "^4.4.1"
   },
   "dependencies": {
     "ejs": "^3.1.9",
