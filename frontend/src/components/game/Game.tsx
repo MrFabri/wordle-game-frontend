@@ -5,16 +5,52 @@ import "./game.scss";
 import Winner from "./Winner";
 
 function Game() {
-  const [win, setWin] = useState(false);
-  const [wordLengt, setWordLengt] = useState(5);
-  const [settingState, setSettingState] = useState(false);
+  const [win, setWin] = useState<boolean>(false);
+  const [wordLengt, setWordLengt] = useState<number>(5);
+  const [settingState, setSettingState] = useState<boolean>(false);
+  const [tries, setTries] = useState<number>(0);
 
-  function getWord(lengt: number) {
+  const incrementTries = (): void => setTries(tries + 1);
+  const resetTries = (): void => setTries(0);
+  const toggleSettings = (): void => setSettingState(!settingState);
+  const getWord = (lengt: number): string => {
     return "cykla";
-  }
+  };
+
+  // const resetGame = (): void => {
+  //   setWin(false);
+  //   resetTries();
+  // }
 
   const correctWord = getWord(wordLengt);
-  const toggleSettings = (): void => setSettingState(!settingState);
+
+  let gameOrSettings;
+  if (settingState) {
+    gameOrSettings = (
+      <Settings
+        word={{
+          lengt: wordLengt,
+          setLengt: setWordLengt,
+        }}
+        settings={{
+          toggle: toggleSettings,
+        }}
+      />
+    );
+  } else {
+    gameOrSettings = (
+      <Gameboard
+        word={{
+          length: wordLengt,
+          value: correctWord,
+          tries,
+        }}
+        incrementTries={incrementTries}
+        win={win}
+        setWin={setWin}
+      />
+    );
+  }
 
   return (
     <div className="game">
@@ -23,25 +59,7 @@ function Game() {
         onClick={() => toggleSettings()}
       ></span>
       {/***** Shows the game or settings ****/}
-      {settingState ? (
-        <Settings
-          word={{
-            lengt: wordLengt,
-            setLengt: setWordLengt,
-          }}
-          settings={{
-            toggle: toggleSettings,
-          }}
-        />
-      ) : (
-        <Gameboard
-          word={{
-            length: wordLengt,
-            value: correctWord,
-          }}
-          winner={setWin}
-        />
-      )}
+      {gameOrSettings}
       {/**** Shows the winner component if the user wins ****/}
       {win && <Winner />}
     </div>

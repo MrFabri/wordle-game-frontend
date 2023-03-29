@@ -12,6 +12,48 @@
     flex-direction: column;
     align-items: center;
 
+
+    .gameText {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        >p {
+            font-size: 1.1rem;
+        }
+
+        .attempts-n-timer {
+            display: flex;
+            flex-direction: row;
+            gap: .5rem;
+
+            >div {
+                display: flex;
+                font-size: .9rem;
+                margin-top: 1rem;
+                text-align: center;
+                padding: .2rem .5rem;
+                border-radius: .2rem;
+                background-color: rgb(100, 100, 100);
+                color: white;
+            }
+
+            .timer-icon {
+                filter: invert(100%);
+                display: inline-block;
+                background-image: url('./../../assets/timer.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                width: 1.2rem;
+                height: 1.2rem;
+                margin-right: .5rem;
+            }
+        }
+    }
+
+
     .settings-icon, .close-icon {
         position: absolute;
         top: 0;
@@ -29,10 +71,6 @@
 
     .close-icon {
         background-image: url('./../../assets/close-circle.svg');
-    }
-
-    >p {
-        margin-bottom: 2rem;
     }
 
     form.gameinput {
@@ -100,7 +138,7 @@
         place-items: center;
 
         .winner-content {
-            width: 20%;
+            width: auto;
             border-radius: 1rem;
             background-color: rgb(124, 124, 124);
             padding: 1rem;
