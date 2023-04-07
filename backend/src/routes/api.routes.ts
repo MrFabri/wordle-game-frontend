@@ -84,6 +84,8 @@ router.get("/highscore/add", async (req: Request, res: Response) => {
       name,
       ...game,
     })
+    const index = games.findIndex(obj => obj.id === game.id);
+    games.splice(index, 1);
     return res.status(201).json(highscore);
   }
 
