@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 interface Props {
-  onSubmit: (input: string) => void;
-  inputChars: number;
+  onSubmit: (input: string) => Promise<void>;
+  wordLength: number;
 }
 
-function GameInput({ onSubmit, inputChars }: Props) {
+function GameInput({ onSubmit, wordLength }: Props) {
   const [text, setText] = useState("");
 
   return (
@@ -13,10 +13,10 @@ function GameInput({ onSubmit, inputChars }: Props) {
       className="gameinput"
       onSubmit={(e) => {
         e.preventDefault();
-        if (text.length === inputChars) {
+        if (text.length === wordLength) {
           onSubmit(text);
         } else {
-          alert(`Ordet måste ha ${inputChars} bokstäver!`);
+          alert(`Ordet måste ha ${wordLength} bokstäver!`);
         }
         setText("");
       }}
@@ -27,7 +27,7 @@ function GameInput({ onSubmit, inputChars }: Props) {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder={`Max ${inputChars} characters`}
+        placeholder={`Max ${wordLength} characters`}
       />
       <button>Enter</button>
     </form>

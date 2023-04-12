@@ -1,47 +1,44 @@
 import GameInput from "./GameInput";
 import GameFeedback from "./GameFeedback";
-import getFeedback from "../../helpers/feedback";
 import { useState } from "react";
 import Timer from "react-timer-wrapper";
 import Timecode from "react-timecode";
+import ISettings from "../../interfaces/settings.interface";
+import compareWords from "../../services/compareWords";
 
 interface Props {
-  word: {
-    length: number;
-    value: string;
-    tries: number;
-  };
-  setWin: (winner: boolean) => void;
-  win: boolean;
-  incrementTries: () => void;
+  settings: ISettings;
+  gameId: string;
+  setGameWinned: (bool: boolean) => void;
 }
 
-function Gameboard({ word, setWin, win, incrementTries }: Props) {
+function Gameboard({ settings, gameId, setGameWinned }: Props) {
   type feedbacks = { letter: string; result: string }[][];
 
   const [feedbacks, setFeedbacks] = useState<feedbacks>([]);
+  const [tries, setTries] = useState<string[]>([]);
 
-  const submit = (input: string): void => {
-    if (input === word.value) {
-      setWin(true);
-      incrementTries();
+  const submit = async (input: string): Promise<void> => {
+    const data = await compareWords({ id: gameId, guess: input });
+    setTries(data.guesses);
+
+    if (data.correct) {
+      setGameWinned(true);
       setTimer(false);
+      setFeedbacks([...feedbacks, data.feedback]);
     } else {
-      const data = getFeedback(word.value, input);
-      console.log(data);
-      incrementTries();
-      setFeedbacks([...feedbacks, data]);
+      setFeedbacks([...feedbacks, data.feedback]);
     }
   };
 
   const [timerShouldRun, setTimer] = useState(true);
 
-  let attemptsAndTimer;
-  if (word.tries > 0) {
-    attemptsAndTimer = (
+  let gameInfo;
+  if (tries.length > 0) {
+    gameInfo = (
       <div className="attempts-n-timer">
         <div className="attempts">
-          {word.tries} {word.tries === 1 ? "attempt" : "attempts"}
+          {tries.length} {tries.length === 1 ? "attempt" : "attempts"}
         </div>
 
         <div>
@@ -64,15 +61,14 @@ function Gameboard({ word, setWin, win, incrementTries }: Props) {
 
       <div className="gameText">
         <p>Guess the mystic word 👀</p>
-        {attemptsAndTimer}
+        {gameInfo}
       </div>
 
       {feedbacks.map((feedback, index) => {
         return <GameFeedback feedback={feedback} key={index} />;
       })}
       <br />
-      {!win && <GameInput onSubmit={submit} inputChars={word.length} />}
-      {win && <br></br>}
+      <GameInput onSubmit={submit} wordLength={settings.wordLength} />
     </>
   );
 }

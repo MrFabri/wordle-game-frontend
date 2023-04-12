@@ -1,56 +1,35 @@
-import { useState } from "react";
+import "./game.scss";
+import { useState, useEffect } from "react";
 import Settings from "./Settings";
 import Gameboard from "./Gameboard";
-import "./game.scss";
+import newGame from "../../services/newGame";
+import ISettings from "../../interfaces/settings.interface";
 import Winner from "./Winner";
 
 function Game() {
-  const [win, setWin] = useState<boolean>(false);
-  const [wordLengt, setWordLengt] = useState<number>(5);
+  const [gameId, setGameId] = useState<string>("");
+  const [settings, setSettings] = useState<ISettings>({
+    wordLength: 5,
+    uniqueLetters: false,
+  });
   const [settingState, setSettingState] = useState<boolean>(false);
-  const [tries, setTries] = useState<number>(0);
+  const [gameWinned, setGameWinned] = useState<boolean>(false);
 
-  const incrementTries = (): void => setTries(tries + 1);
-  const resetTries = (): void => setTries(0);
-  const toggleSettings = (): void => setSettingState(!settingState);
-  const getWord = (lengt: number): string => {
-    return "cykla";
+  // Function that updates the settings
+  const handleSettings = (settings: ISettings): void => {
+    setSettings(settings);
   };
 
-  // const resetGame = (): void => {
-  //   setWin(false);
-  //   resetTries();
-  // }
+  // New game
+  useEffect(() => {
+    (async () => {
+      let data = await newGame(settings);
+      setGameId(data.id);
+    })();
+  }, [settings]);
 
-  const correctWord = getWord(wordLengt);
-
-  let gameOrSettings;
-  if (settingState) {
-    gameOrSettings = (
-      <Settings
-        word={{
-          lengt: wordLengt,
-          setLengt: setWordLengt,
-        }}
-        settings={{
-          toggle: toggleSettings,
-        }}
-      />
-    );
-  } else {
-    gameOrSettings = (
-      <Gameboard
-        word={{
-          length: wordLengt,
-          value: correctWord,
-          tries,
-        }}
-        incrementTries={incrementTries}
-        win={win}
-        setWin={setWin}
-      />
-    );
-  }
+  // Functions for toggling the settings
+  const toggleSettings = (): void => setSettingState(!settingState);
 
   return (
     <div className="game">
@@ -58,10 +37,22 @@ function Game() {
         className={settingState ? "close-icon" : "settings-icon"}
         onClick={() => toggleSettings()}
       ></span>
-      {/***** Shows the game or settings ****/}
-      {gameOrSettings}
-      {/**** Shows the winner component if the user wins ****/}
-      {win && <Winner />}
+
+      {settingState ? (
+        <Settings
+          settings={settings}
+          setSettings={handleSettings}
+          toggleSettings={toggleSettings}
+        />
+      ) : (
+        <Gameboard
+          settings={settings}
+          gameId={gameId}
+          setGameWinned={setGameWinned}
+        />
+      )}
+
+      {gameWinned && <Winner />}
     </div>
   );
 }

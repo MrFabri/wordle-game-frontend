@@ -1,17 +1,17 @@
 import { useState } from "react";
+import ISettings from "../../interfaces/settings.interface";
 
 interface Props {
-  word: {
-    lengt: number;
-    setLengt: (input: number) => void;
-  };
-  settings: {
-    toggle: () => void;
-  };
+  settings: ISettings;
+  setSettings: (settings: ISettings) => void;
+  toggleSettings: () => void;
 }
 
-function Settings({ word, settings }: Props) {
-  const [number, setNumber] = useState(0);
+function Settings({ settings, setSettings, toggleSettings }: Props) {
+  const [number, setNumber] = useState(settings.wordLength);
+  const [bool, setBool] = useState(settings.uniqueLetters);
+
+  const toggleBool = () => setBool(!bool);
 
   return (
     <div className="settings-container">
@@ -24,22 +24,45 @@ function Settings({ word, settings }: Props) {
         min="4"
         max="11"
         autoFocus
-        placeholder={word.lengt.toString()}
+        placeholder={settings.wordLength.toString()}
         onChange={(e) => {
           setNumber(Number(e.target.value));
         }}
       />
+
+      <br />
+
+      <label htmlFor="">Unique Letters</label>
+      <div className="field">
+        <label className="switch" htmlFor="flag_translation">
+          <input
+            type="checkbox"
+            id="flag_translation"
+            name="flag_translation"
+            checked={bool}
+            onChange={toggleBool}
+          />
+          <span className="slider round"></span>
+        </label>
+      </div>
+
+      <br />
+
       <button
         onClick={() => {
           if (!number || number > 11 || number < 4) {
             return;
           }
-          word.setLengt(number);
-          settings.toggle();
+          setSettings({
+            wordLength: number,
+            uniqueLetters: bool,
+          });
+          toggleSettings();
         }}
       >
         Save
       </button>
+      <br />
     </div>
   );
 }
