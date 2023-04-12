@@ -7,6 +7,6 @@ export default interface Game {
     },
     correct: boolean,
     guesses: string[],
-    startTime: Date,
+    startTime?: Date,
     endTime?: Date,
 }

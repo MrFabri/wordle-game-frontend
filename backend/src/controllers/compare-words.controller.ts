@@ -13,6 +13,11 @@ export default (req: Request, res: Response) => {
 
     if (game && game.correct === false) {
         if (game.word.length !== guess.length) return errorMessage(res, 500, "THE GUESS AND THE CORRECT WORD MUST HAVE THE SAME LENGTH");
+
+        // Starts the timer on first guess
+        if (game.guesses.length === 0) {
+            game.startTime = new Date();
+        }
         game.guesses.push(guess);
 
         // Win Scenario

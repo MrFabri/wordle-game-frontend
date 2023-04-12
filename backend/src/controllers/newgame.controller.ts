@@ -4,7 +4,6 @@ import selectRandomWord from '../utils/selectRandomWord';
 import IGame from '../interfaces/game.interface';
 import WORDS from '../utils/words.array';
 import GAMES from '../utils/games.array';
-import { errorMessage } from "../utils/error.handler";
 
 export default (req: Request, res: Response) => {
     const wordLength: number = req.body.wordLength || 5;
@@ -18,8 +17,7 @@ export default (req: Request, res: Response) => {
             uniqueLetters
         },
         correct: false,
-        guesses: [],
-        startTime: new Date()
+        guesses: []
     }
 
     // console.log(game)
