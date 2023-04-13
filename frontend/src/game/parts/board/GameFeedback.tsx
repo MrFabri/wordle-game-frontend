@@ -1,12 +1,14 @@
+import { IWordFeedback } from "@/interfaces/feedback.interface";
+
 interface Props {
-  feedback: { letter: string; result: string }[];
+  wordFeedback: IWordFeedback;
 }
 
-function GameFeedback({ feedback }: Props) {
+function GameFeedback({ wordFeedback }: Props) {
   return (
     <>
       <div className="feedback-container">
-        {feedback.map((obj, index) => {
+        {wordFeedback.map((obj, index) => {
           return (
             <div
               key={index}

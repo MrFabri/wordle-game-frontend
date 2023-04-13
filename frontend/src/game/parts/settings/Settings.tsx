@@ -5,9 +5,10 @@ interface Props {
   settings: ISettings;
   setSettings: (settings: ISettings) => void;
   toggleSettings: () => void;
+  resetGame: () => void;
 }
 
-function Settings({ settings, setSettings, toggleSettings }: Props) {
+function Settings({ settings, setSettings, toggleSettings, resetGame }: Props) {
   const [number, setNumber] = useState(settings.wordLength);
   const [bool, setBool] = useState(settings.uniqueLetters);
 
@@ -57,6 +58,7 @@ function Settings({ settings, setSettings, toggleSettings }: Props) {
             wordLength: number,
             uniqueLetters: bool,
           });
+          resetGame();
           toggleSettings();
         }}
       >

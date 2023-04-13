@@ -4,6 +4,7 @@ import Settings from "@game/parts/settings/Settings";
 import Gameboard from "@game/parts/board/Gameboard";
 import Winner from "@game/parts/winner/Winner";
 import ISettings from "@interfaces/settings.interface";
+import IFeedback from "@/interfaces/feedback.interface";
 import newGame from "@services/newGame";
 
 function Game(): JSX.Element {
@@ -14,6 +15,18 @@ function Game(): JSX.Element {
   });
   const [settingState, setSettingState] = useState<boolean>(false);
   const [gameWinned, setGameWinned] = useState<boolean>(false);
+  const [tries, setTries] = useState<number>(0);
+  const [timerState, setTimer] = useState(true);
+  const [feedback, setFeedback] = useState<IFeedback>([]);
+  const [word, setWord] = useState<string>("");
+
+  // Reset game
+  const resetGame = (): void => {
+    setTries(0);
+    setFeedback([]);
+    setGameWinned(false);
+    setTimer(true);
+  };
 
   // Function that updates the settings
   const handleSettings = (settings: ISettings): void => {
@@ -26,7 +39,7 @@ function Game(): JSX.Element {
       let data = await newGame(settings);
       setGameId(data.id);
     })();
-  }, [settings]);
+  }, [settings, gameWinned]);
 
   // Functions for toggling the settings
   const toggleSettings = (): void => setSettingState(!settingState);
@@ -43,16 +56,23 @@ function Game(): JSX.Element {
           settings={settings}
           setSettings={handleSettings}
           toggleSettings={toggleSettings}
+          resetGame={resetGame}
         />
       ) : (
         <Gameboard
           settings={settings}
           gameId={gameId}
+          gameWinned={gameWinned}
           setGameWinned={setGameWinned}
+          tries={tries}
+          setTries={setTries}
+          timer={{ shouldRun: timerState, handle: setTimer }}
+          feedback={{ value: feedback, set: setFeedback }}
+          setWord={setWord}
         />
       )}
 
-      {gameWinned && <Winner />}
+      {gameWinned && <Winner resetGame={resetGame} tries={tries} word={word} />}
     </div>
   );
 }

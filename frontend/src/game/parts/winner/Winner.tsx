@@ -1,11 +1,23 @@
-function Winner() {
+interface Props {
+  resetGame: () => void;
+  tries: number;
+  word: string;
+}
+
+function Winner({ resetGame, tries, word }: Props) {
   return (
     <div className="winner">
       <div className="winner-content">
-        <h1>Congratulations!</h1>
-        <p>You won the game</p>
+        <div className="congrats">
+          <h1>🎉 Congratulations! 🎉</h1>
+          <p>
+            The word was "{word}" and you guessed it in {tries}{" "}
+            {tries > 1 ? "tries" : "try"}
+          </p>
+        </div>
         <br />
-        <p>Save your scores:</p>
+        {/* Highscore form */}
+        <p className="highscoreLabel">Upload your scores 📊📈📉</p>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -20,8 +32,9 @@ function Winner() {
           <button>Submit</button>
         </form>
 
+        {/* Start new game */}
         <div className="buttonCont">
-          <button>Start new game</button>
+          <button onClick={resetGame}>Start new game</button>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Timer from "react-timer-wrapper";
 import Timecode from "react-timecode";
 
@@ -12,41 +11,60 @@ import compareWords from "@services/compareWords";
 interface Props {
   settings: ISettings;
   gameId: string;
+  gameWinned: boolean;
   setGameWinned: (bool: boolean) => void;
+  tries: number;
+  setTries: (tries: number) => void;
+  timer: {
+    shouldRun: boolean;
+    handle: (bool: boolean) => void;
+  };
+  feedback: {
+    value: IFeedback;
+    set: (feedback: IFeedback) => void;
+  };
+  setWord: (word: string) => void;
 }
 
-function Gameboard({ settings, gameId, setGameWinned }: Props) {
-  const [feedbacks, setFeedbacks] = useState<IFeedback>([]);
-  const [tries, setTries] = useState<string[]>([]);
-
+function Gameboard({
+  settings,
+  gameId,
+  gameWinned,
+  setGameWinned,
+  tries,
+  setTries,
+  timer,
+  feedback,
+  setWord,
+}: Props) {
   const submit = async (input: string): Promise<void> => {
     const data = await compareWords({ id: gameId, guess: input });
-    setTries(data.guesses);
+    setTries(data.guesses.length);
 
     if (data.correct) {
       setGameWinned(true);
-      setTimer(false);
-      setFeedbacks([...feedbacks, data.feedback]);
+      timer.handle(false);
+      feedback.set([...feedback.value, data.feedback]);
+      setWord(data.word);
     } else {
-      setFeedbacks([...feedbacks, data.feedback]);
+      feedback.set([...feedback.value, data.feedback]);
     }
   };
 
-  const [timerShouldRun, setTimer] = useState(true);
-
   let gameInfo;
-  if (tries.length > 0) {
+  if (tries > 0) {
     gameInfo = (
       <div className="attempts-n-timer">
         <div className="attempts">
-          {tries.length} {tries.length === 1 ? "attempt" : "attempts"}
+          {tries} {tries === 1 ? "attempt" : "attempts"}
         </div>
 
         <div>
           <div className="timer-icon"></div>
           <Timer
-            active={timerShouldRun}
+            active={timer.shouldRun}
             duration={null}
+            // onTimeUpdate={console.log}
             style={{ display: "flex", alignItems: "center" }}
           >
             <Timecode />
@@ -65,11 +83,13 @@ function Gameboard({ settings, gameId, setGameWinned }: Props) {
         {gameInfo}
       </div>
 
-      {feedbacks.map((feedback, index) => {
-        return <GameFeedback feedback={feedback} key={index} />;
+      {feedback.value.map((wordFeed, index) => {
+        return <GameFeedback wordFeedback={wordFeed} key={index} />;
       })}
       <br />
-      <GameInput onSubmit={submit} wordLength={settings.wordLength} />
+      {!gameWinned && (
+        <GameInput onSubmit={submit} wordLength={settings.wordLength} />
+      )}
     </>
   );
 }

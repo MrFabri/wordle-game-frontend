@@ -141,18 +141,33 @@
             width: auto;
             border-radius: .2rem;
             background-color: rgb(255, 255, 255);
-            padding: 1rem 5rem;
+            padding: 2rem 5rem;
             color: black;
+
+            .congrats {
+                >h1, >p{
+                    text-align: center;
+                }
+                >p {
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            .highscoreLabel {
+                font-size: .9rem;
+            }
 
             >form {
                 display: flex;
-                margin: .2rem 0 3rem 0;
+                margin: .3rem 0 3rem 0;
         
                 input, button {
                     border: 1px solid black;
                     padding: .5rem 1rem;
                 }
                 input {
+                    width: 100%;
                     border-radius: .3rem 0 0rem .3rem;
                     border-right: 0;
                     outline: none;
