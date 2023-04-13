@@ -1,12 +1,12 @@
 import "./game.scss";
 import { useState, useEffect } from "react";
-import Settings from "./Settings";
-import Gameboard from "./Gameboard";
-import newGame from "../../services/newGame";
-import ISettings from "../../interfaces/settings.interface";
-import Winner from "./Winner";
+import Settings from "@game/parts/settings/Settings";
+import Gameboard from "@game/parts/board/Gameboard";
+import Winner from "@game/parts/winner/Winner";
+import ISettings from "@interfaces/settings.interface";
+import newGame from "@services/newGame";
 
-function Game() {
+function Game(): JSX.Element {
   const [gameId, setGameId] = useState<string>("");
   const [settings, setSettings] = useState<ISettings>({
     wordLength: 5,

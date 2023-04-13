@@ -1,10 +1,13 @@
-import GameInput from "./GameInput";
-import GameFeedback from "./GameFeedback";
 import { useState } from "react";
 import Timer from "react-timer-wrapper";
 import Timecode from "react-timecode";
-import ISettings from "../../interfaces/settings.interface";
-import compareWords from "../../services/compareWords";
+
+import GameInput from "./GameInput";
+import GameFeedback from "./GameFeedback";
+
+import ISettings from "@interfaces/settings.interface";
+import IFeedback from "@interfaces/feedback.interface";
+import compareWords from "@services/compareWords";
 
 interface Props {
   settings: ISettings;
@@ -13,9 +16,7 @@ interface Props {
 }
 
 function Gameboard({ settings, gameId, setGameWinned }: Props) {
-  type feedbacks = { letter: string; result: string }[][];
-
-  const [feedbacks, setFeedbacks] = useState<feedbacks>([]);
+  const [feedbacks, setFeedbacks] = useState<IFeedback>([]);
   const [tries, setTries] = useState<string[]>([]);
 
   const submit = async (input: string): Promise<void> => {

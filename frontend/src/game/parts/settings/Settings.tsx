@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ISettings from "../../interfaces/settings.interface";
+import ISettings from "@interfaces/settings.interface";
 
 interface Props {
   settings: ISettings;
