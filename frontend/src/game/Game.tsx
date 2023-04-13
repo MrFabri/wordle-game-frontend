@@ -19,6 +19,7 @@ function Game(): JSX.Element {
   const [timerState, setTimer] = useState(true);
   const [feedback, setFeedback] = useState<IFeedback>([]);
   const [word, setWord] = useState<string>("");
+  const [restart, setRestart] = useState<boolean>(false);
 
   // Reset game
   const resetGame = (): void => {
@@ -26,6 +27,7 @@ function Game(): JSX.Element {
     setFeedback([]);
     setGameWinned(false);
     setTimer(true);
+    setRestart(!restart);
   };
 
   // Function that updates the settings
@@ -39,7 +41,7 @@ function Game(): JSX.Element {
       let data = await newGame(settings);
       setGameId(data.id);
     })();
-  }, [settings, gameWinned]);
+  }, [settings, restart]);
 
   // Functions for toggling the settings
   const toggleSettings = (): void => setSettingState(!settingState);
@@ -72,7 +74,14 @@ function Game(): JSX.Element {
         />
       )}
 
-      {gameWinned && <Winner resetGame={resetGame} tries={tries} word={word} />}
+      {gameWinned && (
+        <Winner
+          resetGame={resetGame}
+          tries={tries}
+          word={word}
+          gameId={gameId}
+        />
+      )}
     </div>
   );
 }

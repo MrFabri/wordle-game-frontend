@@ -1,10 +1,28 @@
+import { useState } from "react";
+import highscore from "@services/addToHighscore";
+
 interface Props {
   resetGame: () => void;
   tries: number;
   word: string;
+  gameId: string;
 }
 
-function Winner({ resetGame, tries, word }: Props) {
+function Winner({ resetGame, tries, word, gameId }: Props) {
+  const [name, setName] = useState<string>("");
+  const [highscoreSaved, setHighscoreSaved] = useState<boolean>(false);
+
+  const submit = async () => {
+    if (name.length < 2) return alert("Please type your name");
+    try {
+      await highscore({ id: gameId, name });
+      setHighscoreSaved(true);
+    } catch (e) {
+      console.log(e);
+      return alert("An error occurred, try again!");
+    }
+  };
+
   return (
     <div className="winner">
       <div className="winner-content">
@@ -17,20 +35,40 @@ function Winner({ resetGame, tries, word }: Props) {
         </div>
         <br />
         {/* Highscore form */}
-        <p className="highscoreLabel">Upload your scores 📊📈📉</p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <input
-            autoComplete="off"
-            type="text"
-            placeholder="Your name goes here"
-            autoFocus
-          />
-          <button>Submit</button>
-        </form>
+
+        {!highscoreSaved && (
+          <>
+            <p className="highscoreLabel">Upload your scores 📊📈📉</p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                submit();
+              }}
+            >
+              <input
+                autoComplete="off"
+                type="text"
+                placeholder="Your name goes here"
+                autoFocus
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+              <button>Submit</button>
+            </form>
+          </>
+        )}
+
+        {highscoreSaved && (
+          <div className="highscoreSaved">
+            <p>Your game has been saved succesfully ✅</p>
+            <p>
+              Visit <a href="/highscore">highscore</a>
+            </p>
+            <br />
+            <br />
+          </div>
+        )}
 
         {/* Start new game */}
         <div className="buttonCont">

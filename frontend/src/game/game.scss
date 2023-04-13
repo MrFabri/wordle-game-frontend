@@ -194,6 +194,18 @@
                     margin-bottom: 1rem;
                 }
             }
+
+            .highscoreSaved {
+                p {
+                    line-height: 2.3rem;
+                    text-align: center; 
+                    >a {
+                        color: rgb(59, 59, 59);
+                        font-style: italic;
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
     }
 }
