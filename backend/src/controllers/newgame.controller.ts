@@ -20,7 +20,6 @@ export default (req: Request, res: Response) => {
         guesses: []
     }
 
-    console.log(game)
     GAMES.push(game);
     res.status(201).json({
         id: game.id
