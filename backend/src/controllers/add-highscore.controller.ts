@@ -3,6 +3,7 @@ import { errorMessage } from "../utils/error.handler";
 import IGame from '../interfaces/game.interface';
 import HighscoreModel from "../models/highscore.model";
 import GAMES from '../utils/games.array';
+import calculateDuration from "../utils/calculateDuration";
 
 export default async (req: Request, res: Response) => {
     const { id, name } = req.body;
@@ -13,6 +14,7 @@ export default async (req: Request, res: Response) => {
     if (game && game.correct === true) {
         const highscore = await HighscoreModel.create({
             name,
+            duration: calculateDuration(game.endTime!, game.startTime!),
             ...game,
         })
 

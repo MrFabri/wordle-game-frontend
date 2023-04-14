@@ -6,6 +6,9 @@ const HighscoreSchema = new Schema<IHighscore>({
         type: String,
         required: true
     },
+    duration: {
+        type: String
+    },
     id: {
         type: String,
         required: true
