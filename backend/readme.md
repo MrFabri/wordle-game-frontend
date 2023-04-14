@@ -51,12 +51,3 @@ BODY (REQUIRED):
 }
 
 ```
-
-```ts
-LIST OF HIGHSCORES
-
-GET /api/highscore/
-
-Returns a list of all the highscores saved
-
-```
