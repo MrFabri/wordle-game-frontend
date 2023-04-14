@@ -1,6 +1,9 @@
 ## Wordle Game - Fullstack application
 
-To start the project, run these commands in its respective folders
+### Configuration
+- Go to the backend folder and rename .env.example to .env and fill it with your information
+
+### To start the project, run these commands in its respective folders
 - `npm run build` in /frontend
 - `npm start` in /backend
 
