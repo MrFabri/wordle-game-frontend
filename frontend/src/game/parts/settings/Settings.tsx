@@ -17,23 +17,28 @@ function Settings({ settings, setSettings, toggleSettings, resetGame }: Props) {
   return (
     <div className="settings-container">
       <h1>Settings</h1>
-      <label htmlFor="number">Number of letters</label>
+      <label htmlFor="number">
+        Number of letters <small>2 - 11</small>
+      </label>
       <input
         name="number"
         autoComplete="off"
         type="number"
-        min="4"
+        min="2"
         max="11"
         autoFocus
         placeholder={settings.wordLength.toString()}
         onChange={(e) => {
-          setNumber(Number(e.target.value));
+          const num = Number(e.target.value);
+          setNumber(num);
         }}
       />
 
       <br />
 
-      <label htmlFor="">Unique Letters</label>
+      <label htmlFor="">
+        Unique Letters <small>Yes / No</small>
+      </label>
       <div className="field">
         <label className="switch" htmlFor="flag_translation">
           <input
@@ -51,8 +56,8 @@ function Settings({ settings, setSettings, toggleSettings, resetGame }: Props) {
 
       <button
         onClick={() => {
-          if (!number || number > 11 || number < 4) {
-            return;
+          if (!number || isNaN(number) || number > 11 || number < 2) {
+            return alert("You must pass a valid number between 2 and 11");
           }
           setSettings({
             wordLength: number,

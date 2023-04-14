@@ -22,6 +22,7 @@ function GameInput({ onSubmit, wordLength }: Props) {
       }}
     >
       <input
+        className={text && text.length !== wordLength ? "wrong" : ""}
         autoComplete="off"
         autoFocus
         type="text"
@@ -29,7 +30,9 @@ function GameInput({ onSubmit, wordLength }: Props) {
         onChange={(e) => setText(e.target.value)}
         placeholder={`Max ${wordLength} characters`}
       />
-      <button>Enter</button>
+      <button className={text && text.length !== wordLength ? "wrong" : ""}>
+        Enter
+      </button>
     </form>
   );
 }

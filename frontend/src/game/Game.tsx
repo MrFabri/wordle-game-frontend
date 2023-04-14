@@ -30,11 +30,6 @@ function Game(): JSX.Element {
     setRestart(!restart);
   };
 
-  // Function that updates the settings
-  const handleSettings = (settings: ISettings): void => {
-    setSettings(settings);
-  };
-
   // New game
   useEffect(() => {
     (async () => {
@@ -56,7 +51,7 @@ function Game(): JSX.Element {
       {settingState ? (
         <Settings
           settings={settings}
-          setSettings={handleSettings}
+          setSettings={setSettings}
           toggleSettings={toggleSettings}
           resetGame={resetGame}
         />

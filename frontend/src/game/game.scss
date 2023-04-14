@@ -81,6 +81,13 @@
             border: 1px solid black;
             padding: .5rem 1rem;
         }
+        input.wrong, button.wrong {
+            border-color: rgb(196, 20, 20);
+        }
+        button.wrong {
+            color: rgb(196, 20, 20);
+            pointer-events: none;
+        }
         input {
             border-radius: .3rem 0 0rem .3rem;
             border-right: 0;
@@ -102,6 +109,19 @@
         >input, >label, .field {
             width: 80%;
             margin-bottom: 1rem;
+        }
+
+        >label {
+            display: flex;
+            >small {
+                display: grid;
+                place-items: center;
+                margin-left: .5rem;
+                border-radius: .3rem;
+                padding: 0 .5rem;
+                background-color: gray;
+                color: white;
+            }
         }
 
         >input {
