@@ -12,7 +12,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
-      '/highscore': 'http://localhost:5080/highscore'
+      '/highscore': {
+        target: 'http://localhost:5080/highscore',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/highscore/, ''),
+      }
     }
   },
   resolve: {
