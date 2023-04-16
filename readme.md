@@ -1,4 +1,5 @@
 ## Wordle Game - Fullstack application
+<a href="https://wordle.fabricioflores.se/">Demo</a>
 
 ### Configuration
 - Go to the backend folder and rename .env.example to .env and fill it with your information
