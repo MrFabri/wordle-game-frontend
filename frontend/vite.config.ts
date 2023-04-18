@@ -4,6 +4,9 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: '../backend/build'
+  },
   server: {
     // Proxy config for the backend (only for development)
     proxy: {
