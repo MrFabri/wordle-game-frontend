@@ -9,7 +9,7 @@
     "dev": "ts-node-dev src/index.ts",
     "build": "npm run clean && tsc && npm run ejscopy",
     "ejscopy": "ncp ./src/views/ ./dist/views/",
-    "clean": "rimraf ./dist"
+    "clean": "rimraf ./dist/views"
   },
   "keywords": [],
   "author": "",

@@ -10,7 +10,7 @@ db();
 const app = express();
 
 // ****** Configuration ****** \\
-app.set("frontend", "../../frontend/dist/");
+app.set("frontend", "../build/");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
